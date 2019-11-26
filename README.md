@@ -62,3 +62,9 @@ You can run the app on your browser at http://127.0.0.1:8050
 
 ## Otros Recursos
 * [Blockchain.com](https://www.blockchain.com/)
+
+### Presentación
+* [Google Slides](https://docs.google.com/presentation/d/1FSOdAwy-I_GexaKzgdiqnXrCHdxsGw5JZtKv3P5xVLI/edit?usp=sharing)
+
+## Codigo QR
+<img src="https://github.com/JFigueroa1/bitcoin/blob/master/imgs/WhatsApp%20Image%202019-11-26%20at%201.02.57%20PM.jpeg" height="400" />
