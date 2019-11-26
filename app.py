@@ -30,6 +30,17 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 request_blockchain = requests.get(
     "https://blockchain.info/q/totalbc"
 )
+request_difi = requests.get(
+    "https://blockchain.info/q/getdifficulty"
+)
+
+request_lasthash = requests.get(
+    "https://blockchain.info/q/latesthash"
+)
+
+request_blocks = requests.get(
+    "https://blockchain.info/q/getblockcount"
+)
 
 PATH = pathlib.Path(__file__).parent
 DATA_PATH = PATH.joinpath("data").resolve()
@@ -69,29 +80,35 @@ app.layout = html.Div(children=[
         children=[
             html.P(
                 className="p-news float-right",
-                children="BITCOINS IN CIRCULATION: "
+                children="| BITCOINS IN CIRCULATION: "
                 + str(request_blockchain.json()),
+            ),
+            html.P(
+                className="p-news float-right",
+                children=" | HASH DIFFICULTY: "
+                + str(request_difi.json()),
+            ),
+            html.P(
+                className="p-news float-right",
+                children=" | LONGEST CHAIN BLOCKS: "
+                + str(request_blocks.json()),
             ),
             html.P(className="p-news"),
             html.P(
                 className="p-news float-right",
-                children="Last update : "
+                children=" | Last update : "
                 + datetime.datetime.now().strftime("%H:%M:%S"),
-            )
+            ),
+
         ]
     ),
-
-    html.Div(children='''
-        ALL ABOUT BITCOIN.
-    '''),
-
     dcc.Graph(
         figure={
             "data": [
                 go.Scatter(
                     x=address.iloc[:,0],
                     y=address.iloc[:,1],
-                    line={"color": "rgb(0, 0, 0, 0)"},
+                    line={"color": "#d4932a"},
                     mode="lines",
                     name="Price (rhs)",
                     visible=True,
@@ -99,7 +116,7 @@ app.layout = html.Div(children=[
                 ),
             ],
             'layout': {
-                'title': 'Bitcoin addresses'
+                'title': 'Bitcoin addresses: Active addresses',
             }
         }
     ),
@@ -110,7 +127,7 @@ app.layout = html.Div(children=[
                 go.Scatter(
                     x=hashr.iloc[:,0],
                     y=hashr.iloc[:,1],
-                    line={"color": "#08b6c9"},
+                    line={"color": "#d4932a"},
                     mode="lines",
                     name="Price (rhs)",
                     visible=True,
@@ -118,7 +135,7 @@ app.layout = html.Div(children=[
                 ),
             ],
             'layout': {
-                'title': 'Hash rate'
+                'title': 'Hash rate: Tera hashes per second'
             }
         }
     ),
@@ -129,7 +146,7 @@ app.layout = html.Div(children=[
                 go.Scatter(
                     x=address.iloc[:,0],
                     y=address.iloc[:,1],
-                    line={"color": "#000"},
+                    line={"color": "#d4932a"},
                     mode="lines",
                     name="Active Addresses",
                     visible=True,
@@ -137,14 +154,14 @@ app.layout = html.Div(children=[
                 go.Scatter(
                     x=hashr.iloc[:,0],
                     y=hashr.iloc[:,1],
-                    line={"color": "#08b6c9"},
+                    line={"color": "#000"}, 
                     mode="lines",
                     name="Hashrate",
                     visible=True
                 ),
             ],
             'layout': {
-                'title': 'Hashrate (TH/s) y Direcciones activas'
+                'title': 'Hashrate (TH/s) and Active Addresses'
             }
         }
     ),
@@ -155,7 +172,7 @@ app.layout = html.Div(children=[
                 go.Scatter(
                     x=mineros.iloc[:,0],
                     y=mineros.iloc[:,1],
-                    line={"color": "rgb(0, 0, 0, 0)"},
+                    line={"color": "#d4932a"},
                     mode="lines",
                     name="Price (rhs)",
                     visible=True,
@@ -163,7 +180,7 @@ app.layout = html.Div(children=[
                 ),
             ],
             'layout': {
-                'title': 'Miners vs time'
+                'title': 'Miners vs time: Total value of coinbase block rewards and transaction fees paid to miners.'
             }
         }
     ),
@@ -174,7 +191,7 @@ app.layout = html.Div(children=[
                 go.Scatter(
                     x=difficulty.iloc[:,0],
                     y=difficulty.iloc[:,1],
-                    line={"color": "rgb(0, 0, 0, 0)"},
+                    line={"color": "#d4932a"},
                     mode="lines",
                     name="Price (rhs)",
                     visible=True,
@@ -182,7 +199,33 @@ app.layout = html.Div(children=[
                 ),
             ],
             'layout': {
-                'title': 'Hash difficulty'
+                'title': 'Hash difficulty: How much hashing power has been deployed by the network of miners.'
+            }
+        }
+    ),
+
+        dcc.Graph(
+        figure={
+            "data": [
+                go.Scatter(
+                    x=difficulty.iloc[:,0],
+                    y=difficulty.iloc[:,1],
+                    line={"color": "#d4932a"},
+                    mode="lines",
+                    name="Active Addresses",
+                    visible=True,
+                ),
+                go.Scatter(
+                    x=mineros.iloc[:,0],
+                    y=mineros.iloc[:,1],
+                    line={"color": "#000"}, 
+                    mode="lines",
+                    name="Hashrate",
+                    visible=True
+                ),
+            ],
+            'layout': {
+                'title': 'Hash difficulty vs miners reward'
             }
         }
     ),
@@ -193,7 +236,7 @@ app.layout = html.Div(children=[
                 go.Scatter(
                     x=volume.iloc[:,0],
                     y=volume.iloc[:,1],
-                    line={"color": "rgb(0, 0, 0, 0)"},
+                    line={"color": "#d4932a"},
                     mode="lines",
                     name="Price (rhs)",
                     visible=True,
@@ -201,7 +244,7 @@ app.layout = html.Div(children=[
                 ),
             ],
             'layout': {
-                'title': 'Transactions volume'
+                'title': 'Transactions volume: The total estimated value of transactions on the Bitcoin blockchain'
             }
         }
     ),
@@ -212,7 +255,7 @@ app.layout = html.Div(children=[
                 go.Scatter(
                     x=transaccions.iloc[:,0],
                     y=transaccions.iloc[:,1],
-                    line={"color": "rgb(0, 0, 0, 0)"},
+                    line={"color": "#d4932a"},
                     mode="lines",
                     name="Price (rhs)",
                     visible=True,
@@ -231,14 +274,14 @@ app.layout = html.Div(children=[
                 go.Scatter(
                     x=price.iloc[:, 0],
                     y=price.iloc[:, 1],
-                    line={"color": "#000"},
+                    line={"color": "#d4932a"},
                     mode="lines",
                     name="Price (rhs)",
                     visible=True
                 ),
             ],
             'layout': {
-                'title': 'Bitcoin Price'
+                'title': 'Bitcoin Price - USD'
             }
         }
     ),
@@ -249,7 +292,7 @@ app.layout = html.Div(children=[
                 go.Scatter(
                     x=inflation.iloc[:,0],
                     y=inflationValue.iloc[:,0],
-                    line={"color": "rgb(0, 0, 0, 0)"},
+                    line={"color": "#d4932a"},
                     mode="lines",
                     name="Price (rhs)",
                     visible=True,
@@ -257,7 +300,7 @@ app.layout = html.Div(children=[
                 ),
             ],
             'layout': {
-                'title': 'Inflation 3.74%'
+                'title': 'Bitcoin Inflation'
             }
         }
     ),
@@ -268,7 +311,7 @@ app.layout = html.Div(children=[
                 go.Scatter(
                     x=volumeDate.iloc[:,0],
                     y=volumeValue.iloc[:,0],
-                    line={"color": "rgb(0, 0, 0, 0)"},
+                    line={"color": "#d4932a"},
                     mode="lines",
                     name="Price (rhs)",
                     visible=True,
@@ -287,7 +330,7 @@ app.layout = html.Div(children=[
                 go.Scatter(
                     x=nvt.iloc[:,0],
                     y=nvtValue.iloc[:,0],
-                    line={"color": "rgb(0, 0, 0, 0)"},
+                    line={"color": "#d4932a"},
                     mode="lines",
                     name="Price (rhs)",
                     visible=True,
@@ -295,7 +338,7 @@ app.layout = html.Div(children=[
                 ),
             ],
             'layout': {
-                'title': 'NVT'
+                'title': 'NVT: Network Value divided by Daily Transaction Value'
             }
         }
     ),
@@ -306,7 +349,7 @@ app.layout = html.Div(children=[
                 go.Scatter(
                     x=mvrv.iloc[:,0],
                     y=mvrvalue.iloc[:,0],
-                    line={"color": "rgb(0, 0, 0, 0)"},
+                    line={"color": "#d4932a"},
                     mode="lines",
                     name="Price (rhs)",
                     visible=True,
@@ -314,7 +357,7 @@ app.layout = html.Div(children=[
                 ),
             ],
             'layout': {
-                'title': 'MVRV Ratio'
+                'title': 'MVRV Ratio: Calculated by dividing the Network Value (market cap) by the Realised Cap.'
             }
         }
     )
