@@ -49,6 +49,8 @@ You can run the app on your browser at http://127.0.0.1:8050
 
 ![demo.png](demo.png)
 
-## Resources
+## Herramientas
 
-To learn more about Dash, please visit [documentation](https://plot.ly/dash).
+* [Dash](https://plot.ly/dash).
+* [Python](https://www.python.org/)
+* [AWS](aws.amazon.com)
