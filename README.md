@@ -51,9 +51,14 @@ You can run the app on your browser at http://127.0.0.1:8050
 
 ## Herramientas
 
-* [Dash](https://plot.ly/dash)   
-* [Python](https://www.python.org/)   
-* [AWS](aws.amazon.com) 
+* Dash
+<img src="https://github.com/JFigueroa1/bitcoin/blob/master/imgs/dash-logo-by-plotly-stripe.png" height="50" />
+
+* Python
+<img src="https://github.com/JFigueroa1/bitcoin/blob/master/imgs/1024px-Python-logo-notext.svg.png" height="50" />
+
+* AWS   
+
 
 ## Otros Recursos
 * [Blockchain.com](https://www.blockchain.com/)
