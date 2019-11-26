@@ -443,10 +443,10 @@ th{
 
 .p-news{
   display:inline;
-  font-size:12px;
+  font-size:14px;
   padding: 3px;
   margin: 0;
-  color: #FFF;
+  color: #FFF !important;
 }
 
 .float-right{
