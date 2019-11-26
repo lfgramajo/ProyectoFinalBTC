@@ -54,3 +54,6 @@ You can run the app on your browser at http://127.0.0.1:8050
 * [Dash](https://plot.ly/dash)   
 * [Python](https://www.python.org/)   
 * [AWS](aws.amazon.com) 
+
+## Otros Recursos
+* [Blockchain.com](https://www.blockchain.com/)
