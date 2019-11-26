@@ -272,24 +272,6 @@ app.layout = html.Div(children=[
         figure={
             "data": [
                 go.Scatter(
-                    x=price.iloc[:, 0],
-                    y=price.iloc[:, 1],
-                    line={"color": "#d4932a"},
-                    mode="lines",
-                    name="Price (rhs)",
-                    visible=True
-                ),
-            ],
-            'layout': {
-                'title': 'Bitcoin Price - USD'
-            }
-        }
-    ),
-
-    dcc.Graph(
-        figure={
-            "data": [
-                go.Scatter(
                     x=inflation.iloc[:,0],
                     y=inflationValue.iloc[:,0],
                     line={"color": "#d4932a"},
@@ -360,7 +342,24 @@ app.layout = html.Div(children=[
                 'title': 'MVRV Ratio: Calculated by dividing the Network Value (market cap) by the Realised Cap.'
             }
         }
-    )
+    ),
+    dcc.Graph(
+        figure={
+            "data": [
+                go.Scatter(
+                    x=price.iloc[:, 0],
+                    y=price.iloc[:, 1],
+                    line={"color": "#d4932a"},
+                    mode="lines",
+                    name="Price (rhs)",
+                    visible=True
+                ),
+            ],
+            'layout': {
+                'title': 'Bitcoin Price - USD'
+            }
+        }
+    ),
 ])
 
 if __name__ == '__main__':
